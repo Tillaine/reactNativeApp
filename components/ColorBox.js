@@ -1,20 +1,34 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text,StyleSheet } from 'react-native';
+let colorText = 'white';
 
-const ColorBox = (props) => {
-    const { colours, styles } = props;
-    return colours.map((color) => {
-      return (
+const ColorBox = ({ colorName, hexCode }) => {
+    colorText = 
+          parseInt(hexCode.replace('#', ''), 16) > 0xffffff / 1.1
+            ? 'black'
+            : 'white'
+   return (
         <View
-          key={color.hex}
-          style={[styles.container, { backgroundColor: color.hex }]}
+          style={[styles.container,
+            { backgroundColor: hexCode},]}
         >
-          <Text style={styles.boxText}>
-            {color.name}, {color.hex}
+          <Text style={[styles.boxText, {color: colorText}]}>
+            {colorName}, {hexCode}
           </Text>
         </View>
-      );
-    });
-  };
+      )};
+
+      const styles = StyleSheet.create({
+        container: {
+          height: 30,
+          justifyContent: 'center',
+          alignItems: 'center',
+          borderWidth: 1,
+          margin: 5,
+        },
+        boxText: {
+          fontSize: 16,
+        },
+      });
 
 export default ColorBox;
